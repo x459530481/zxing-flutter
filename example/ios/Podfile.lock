@@ -1,0 +1,25 @@
+PODS:
+  - Flutter (1.0.0)
+  - swiftScan (1.1.2)
+  - zxing (0.0.1):
+    - Flutter
+    - swiftScan (= 1.1.2)
+
+DEPENDENCIES:
+  - Flutter (from `Pods/.symlinks/flutter/ios`)
+  - zxing (from `Pods/.symlinks/plugins/zxing/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Pods/.symlinks/flutter/ios
+  zxing:
+    :path: Pods/.symlinks/plugins/zxing/ios
+
+SPEC CHECKSUMS:
+  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  swiftScan: 5bb808704805fc734fc63058143d8468dd11452e
+  zxing: c2dfa926d9ce1b216d32d1ba5cd70fc8fad25b62
+
+PODFILE CHECKSUM: 92fc5d28bdb90e10758292a9685e148d8ba3ea81
+
+COCOAPODS: 1.2.1
