@@ -10,7 +10,6 @@ import com.google.zxing.client.android.Intents
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
-import com.yibo.industrygas.BarcodeEvent
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -21,6 +20,8 @@ class PortraitCaptureActivity : Activity() {
 
     private var mLastBarcode = "INVALID_STRING_STATE"
     private lateinit var scannerDbv: DecoratedBarcodeView
+
+    private val resultList: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +44,9 @@ class PortraitCaptureActivity : Activity() {
                         if (intent.getBooleanExtra(Intents.Scan.BEEP_ENABLED, true)) {
                             beepManager.playBeepSound()
                         }
-
-                        EventBus.getDefault().post(BarcodeEvent(result.text))
+                        if (!resultList.contains(result.text)) {
+                            resultList.add(result.text)
+                        }
                     }
                 }
 
@@ -63,7 +65,7 @@ class PortraitCaptureActivity : Activity() {
                             beepManager.playBeepSound()
                         }
 
-                        EventBus.getDefault().post(BarcodeEvent(result.text))
+                        resultList.add(result.text)
                         finish()
                     }
                 }
@@ -85,6 +87,11 @@ class PortraitCaptureActivity : Activity() {
     override fun onPause() {
         super.onPause()
         scannerDbv.pause()
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().post(BarcodeEvent().apply { barcodeList = resultList })
+        super.onDestroy()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

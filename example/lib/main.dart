@@ -10,31 +10,35 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _barcode = 'Unknown';
+  List _barcodeList = List()..add("Unknow");
 
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text('Plugin example app'),
+          title: new Text('Zxing-flutter example app'),
         ),
         body: new Center(
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text('barcode: $_barcode\n'),
+              new Text('barcode: $_barcodeList\n'),
               new RaisedButton(
                 onPressed: () {
                   try {
-                    Zxing.scan(isBeep: false).then((barcodeResult) {
-                      print("flutter size:" + barcodeResult?.toString());
-                      setState(() {
-                        _barcode = barcodeResult;
-                      });
-                    });
+                    Zxing.scan(isBeep: false, isContinuous: false).then(
+                      (resultList) {
+                        print("client scan result:" + resultList?.toString());
+                        setState(
+                          () {
+                            _barcodeList = resultList;
+                          },
+                        );
+                      },
+                    );
                   } on PlatformException {
-                    _barcode = 'Failed to get barcode.';
+                    _barcodeList = List()..add('Failed to get barcode.');
                   }
                 },
                 child: Text('scan'),

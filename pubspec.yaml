@@ -1,13 +1,12 @@
 name: zxing
-description: this plugin is a simple wrapper of swiftScan for ios and zxing-android-embedded for android.
+description: this plugin is a simple wrapper of native scanner for ios and zxing-android-embedded for android.
 
-version: 0.0.1
+version: 0.0.4
 author: yohom<382146139@qq.com>
 homepage: https://github.com/yohom/zxing-flutter
 
 environment:
   sdk: ">=1.19.0 <2.0.0"
-  flutter: "^0.2.8"
 
 dependencies:
   flutter:

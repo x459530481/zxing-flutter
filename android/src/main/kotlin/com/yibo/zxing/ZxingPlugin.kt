@@ -4,7 +4,6 @@ import android.Manifest
 import android.util.Log
 import com.google.zxing.integration.android.IntentIntegrator
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.yibo.industrygas.BarcodeEvent
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -41,8 +40,8 @@ class ZxingPlugin : MethodCallHandler {
         val barcodeHandler = object {
             @Subscribe
             fun onBarcode(barcode: BarcodeEvent) {
-                Log.d("barcode", "barcode:" + barcode.barcode)
-                result.success(barcode.barcode)
+                Log.d("barcodeList", "barcodeList:" + barcode.barcodeList)
+                result.success(barcode.barcodeList)
             }
         }
 

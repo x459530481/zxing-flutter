@@ -10,6 +10,9 @@ public class SwiftZxingPlugin: NSObject, FlutterPlugin {
     private var _result: FlutterResult!
     private var _navigationVC: UINavigationController!
     
+    private var _isBeep = false
+    private var _isContinuous = false
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         _registrar = registrar
         
@@ -24,6 +27,9 @@ public class SwiftZxingPlugin: NSObject, FlutterPlugin {
         _result = result
         switch call.method {
         case "scan":
+            let argumentDic = call.arguments as! NSDictionary
+            _isBeep = argumentDic["isBeep"] as! Bool
+            _isContinuous = argumentDic["isContinuous"] as! Bool
             handleScan(call: call, result: result)
         default:
             result(FlutterMethodNotImplemented);
@@ -31,19 +37,26 @@ public class SwiftZxingPlugin: NSObject, FlutterPlugin {
     }
     
     private func handleScan(call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let vc = ScanViewController()
-        var style = LBXScanViewStyle()
-        style.animationImage = UIImage(named: "CodeScan.bundle/qrcode_scan_light_green")
-        vc.scanStyle = style
-        vc.scanResultDelegate = self
+        Permissions.authorizeCameraWith { (granted) in
+            if !granted {
+                Permissions.jumpToSystemPrivacySetting()
+            }
+        }
         
-        _hostVC.present(vc, animated: true, completion: nil)
+        let nativeVC = NativeScanVC()
+        nativeVC.isBeep = _isBeep
+        nativeVC.isContinuous = _isContinuous
+        nativeVC.scanDelegate = self
+        
+        _navigationVC = UINavigationController.init(rootViewController: nativeVC)
+        _navigationVC.navigationBar.barStyle = .blackTranslucent
+        _hostVC.present(_navigationVC, animated: true, completion: nil)
     }
 }
 
-extension SwiftZxingPlugin : LBXScanViewControllerDelegate {
-    public func scanFinished(scanResult: LBXScanResult, error: String?) {
-        _result(scanResult.strScanned)
-        NSLog("scan result" + scanResult.strScanned!)
+extension SwiftZxingPlugin : NativeScanVCDelegate {
+    public func scanned(scanResult: [String]) {
+        NSLog("host scan result:" + scanResult.description)
+        _result(scanResult)
     }
 }
