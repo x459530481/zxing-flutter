@@ -7,3 +7,7 @@
 - Implement `isContinuous` parameters on ios platform.
 - The [swiftScan](https://github.com/MxABC/swiftScan) library is replaced with the system API.
 - plugin returns a list of string rather than single string.
+
+## [0.0.4+1]
+
+- return `List<String>` instead of `List`.

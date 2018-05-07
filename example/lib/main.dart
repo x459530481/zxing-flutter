@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List _barcodeList = List()..add("Unknow");
+  List<String> _barcodeList = List()..add("Unknow");
 
   @override
   Widget build(BuildContext context) {
