@@ -21,8 +21,6 @@ class PortraitCaptureActivity : Activity() {
     private var mLastBarcode = "INVALID_STRING_STATE"
     private lateinit var scannerDbv: DecoratedBarcodeView
 
-    private val resultList: MutableList<String> = mutableListOf()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,9 +42,8 @@ class PortraitCaptureActivity : Activity() {
                         if (intent.getBooleanExtra(Intents.Scan.BEEP_ENABLED, true)) {
                             beepManager.playBeepSound()
                         }
-                        if (!resultList.contains(result.text)) {
-                            resultList.add(result.text)
-                        }
+
+                        EventBus.getDefault().post(BarcodeEvent().apply { barcode = result.text })
                     }
                 }
 
@@ -65,7 +62,7 @@ class PortraitCaptureActivity : Activity() {
                             beepManager.playBeepSound()
                         }
 
-                        resultList.add(result.text)
+                        EventBus.getDefault().post(BarcodeEvent().apply { barcode = result.text })
                         finish()
                     }
                 }
@@ -90,8 +87,10 @@ class PortraitCaptureActivity : Activity() {
     }
 
     override fun onDestroy() {
-        EventBus.getDefault().post(BarcodeEvent().apply { barcodeList = resultList })
         super.onDestroy()
+
+        // fixme :结束流之后再次开始扫码flutter端就接收不到条形码了, 先不停止吧, 那么什么时候停止呢?
+//        EventBus.getDefault().post(CloseStreamEvent())
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

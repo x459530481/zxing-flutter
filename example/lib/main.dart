@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:zxing/zxing.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -14,27 +14,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Zxing-flutter example app'),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Zxing-flutter example app'),
         ),
-        body: new Center(
-          child: new Column(
+        body: Center(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text('barcode: $_barcodeList\n'),
-              new RaisedButton(
+              Text('barcode: $_barcodeList\n'),
+              RaisedButton(
                 onPressed: () {
+                  _barcodeList.clear();
                   try {
-                    Zxing.scan(isBeep: false, isContinuous: false).then(
-                      (resultList) {
-                        print("client scan result:" + resultList?.toString());
-                        setState(
-                          () {
-                            _barcodeList = resultList;
-                          },
-                        );
+                    Zxing.scan(isBeep: false, isContinuous: true).listen(
+                      (data) {
+                        print("client scan result:" + data);
+                        setState(() => _barcodeList.add(data));
                       },
                     );
                   } on PlatformException {

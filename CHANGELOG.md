@@ -11,3 +11,6 @@
 ## [0.0.4+1]
 
 - return `List<String>` instead of `List`.
+
+## [0.0.5]
+- return `Stream<String>` instead of `Future<List<String>>`
