@@ -23,10 +23,15 @@ class Zxing {
         .map<String>((data) => data as String);
   }
 
-  static Future<void> showMessage([String content = '']) {
+  static Future<void> showMessage({
+    String content = '',
+    bool isError = false,
+  }) {
     return _showMessageChannel.invokeMethod(
       'showMessage',
-      Map()..['content'] = content,
+      Map()
+        ..['content'] = content
+        ..['isError'] = isError,
     );
   }
 }
