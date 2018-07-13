@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
 import com.tbruyelle.rxpermissions2.RxPermissions
+import es.dmoral.toasty.Toasty
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -102,11 +103,14 @@ class ZxingPlugin {
         }
 
         private fun handleShowMessage(call: MethodCall, result: Result) {
-            Toast.makeText(
-                    REGISTRAR?.activity()!!,
-                    call.argument<String>("content") ?: "",
-                    Toast.LENGTH_SHORT)
-                    .show()
+            val isError = call.argument<Boolean>("isError") ?: false
+            val content = call.argument<String>("content") ?: ""
+
+            if (isError) {
+                Toasty.error(REGISTRAR?.context()!!, content, Toast.LENGTH_SHORT)
+            } else {
+                Toasty.normal(REGISTRAR?.context()!!, content, Toast.LENGTH_SHORT)
+            }
             result.success(null)
         }
     }

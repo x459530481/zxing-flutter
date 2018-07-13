@@ -47,4 +47,6 @@ dependencies {
     implementation 'com.blankj:utilcode:1.9.11'
     // rxPermission
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4'
+    // toasty
+    implementation 'com.github.GrenderG:Toasty:1.2.8'
 }
