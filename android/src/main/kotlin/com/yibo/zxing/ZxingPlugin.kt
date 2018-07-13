@@ -107,9 +107,9 @@ class ZxingPlugin {
             val content = call.argument<String>("content") ?: ""
 
             if (isError) {
-                Toasty.error(REGISTRAR?.context()!!, content, Toast.LENGTH_SHORT)
+                Toasty.error(REGISTRAR?.context()!!, content, Toast.LENGTH_SHORT).show()
             } else {
-                Toasty.normal(REGISTRAR?.context()!!, content, Toast.LENGTH_SHORT)
+                Toasty.normal(REGISTRAR?.context()!!, content, Toast.LENGTH_SHORT).show()
             }
             result.success(null)
         }
