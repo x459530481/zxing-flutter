@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
                     Zxing.scan(isBeep: false, isContinuous: true).listen(
                       (data) {
                         print("client scan result:" + data);
+                        Zxing.showMessage('barcode from flutter:$data');
                         setState(() => _barcodeList.add(data));
                       },
                     );

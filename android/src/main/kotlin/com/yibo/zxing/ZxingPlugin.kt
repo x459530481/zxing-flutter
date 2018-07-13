@@ -2,6 +2,7 @@ package com.yibo.zxing
 
 import android.Manifest
 import android.util.Log
+import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.flutter.plugin.common.EventChannel
@@ -31,6 +32,14 @@ class ZxingPlugin {
             channel.setMethodCallHandler { call, result ->
                 when (call.method) {
                     "scan" -> handleScan(call, result)
+                    else -> result.notImplemented()
+                }
+            }
+
+            val showMessageChannel = MethodChannel(registrar.messenger(), "show_message")
+            showMessageChannel.setMethodCallHandler { call, result ->
+                when (call.method) {
+                    "showMessage" -> handleShowMessage(call, result)
                     else -> result.notImplemented()
                 }
             }
@@ -90,6 +99,15 @@ class ZxingPlugin {
                             result.error("没有相机权限!", "没有相机权限!", "没有相机权限!")
                         }
                     }
+        }
+
+        private fun handleShowMessage(call: MethodCall, result: Result) {
+            Toast.makeText(
+                    REGISTRAR?.activity()!!,
+                    call.argument<String>("content") ?: "",
+                    Toast.LENGTH_SHORT)
+                    .show()
+            result.success(null)
         }
     }
 }
