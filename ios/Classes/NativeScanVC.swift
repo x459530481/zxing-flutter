@@ -7,6 +7,7 @@
 
 import AVFoundation
 import UIKit
+import Toast_Swift
 
 public protocol NativeScanVCDelegate {
     func scanned(scanResult: String)
@@ -101,6 +102,8 @@ class NativeScanVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                         // todo add beep
 //                        Sound.play(file: "zxing_beep.ogg")
                     }
+                    
+                    view.makeToast(singleResult)
                     scanDelegate?.scanned(scanResult: singleResult)
                 }
                 
