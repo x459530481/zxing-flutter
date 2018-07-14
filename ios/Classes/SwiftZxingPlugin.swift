@@ -27,6 +27,13 @@ public class SwiftZxingPlugin: NSObject {
         
         registrar.addMethodCallDelegate(instance, channel: methodChannel)
         eventChannel.setStreamHandler(instance as FlutterStreamHandler & NSObjectProtocol)
+        
+        // 配置Toast
+        var style = ToastStyle()
+        style.cornerRadius = 20
+        style.horizontalPadding = 36.0
+        
+        ToastManager.shared.style = style
     }
     
     // 处理扫码事件
@@ -55,12 +62,9 @@ public class SwiftZxingPlugin: NSObject {
         let content = argumentDic["content"] as! String
         let isError = argumentDic["isError"] as! Bool
         
-        var style = ToastStyle()
-        style.cornerRadius = 20
         if isError {
-            style.backgroundColor = .red
+            ToastManager.shared.style.backgroundColor = .red
         }
-        ToastManager.shared.style = style
         _navigationVC.view.makeToast(content)
     }
 }
