@@ -14,3 +14,4 @@
 
 ## [0.0.5]
 - return `Stream<String>` instead of `Future<List<String>>`
+- enhance ios support
