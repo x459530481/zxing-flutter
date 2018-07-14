@@ -1,7 +1,6 @@
 import Flutter
 import UIKit
 import RxSwift
-import Toaster
 import Toast_Swift
 
 let CHANNEL_ZXING = "zxing"

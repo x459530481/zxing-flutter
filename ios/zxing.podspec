@@ -17,9 +17,9 @@ A new flutter plugin project.
   s.dependency 'Flutter'
   s.dependency 'RxSwift'
   s.dependency 'RxCocoa'
-  s.dependency 'Toaster'
   s.dependency 'Toast-Swift'
-  
+#  s.dependency 'SwiftySound'
+
   s.ios.deployment_target = '8.0'
 end
 

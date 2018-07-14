@@ -97,6 +97,10 @@ class NativeScanVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                     }
                     _resultList.append(singleResult)
                     
+                    if isBeep {
+                        // todo add beep
+//                        Sound.play(file: "zxing_beep.ogg")
+                    }
                     scanDelegate?.scanned(scanResult: singleResult)
                 }
                 
