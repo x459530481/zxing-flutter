@@ -3,15 +3,14 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class Zxing {
-  static const _channel = const MethodChannel('zxing');
+  static const _methodChannel = const MethodChannel('zxing');
   static const _eventChannel = const EventChannel('zxing_stream');
-  static const _showMessageChannel = const MethodChannel('show_message');
 
   static Stream<String> scan({
     bool isBeep = true,
     bool isContinuous = false,
   }) {
-    _channel.invokeMethod(
+    _methodChannel.invokeMethod(
       'scan',
       Map()
         ..['isBeep'] = isBeep
@@ -27,7 +26,7 @@ class Zxing {
     String content = '',
     bool isError = false,
   }) {
-    return _showMessageChannel.invokeMethod(
+    return _methodChannel.invokeMethod(
       'showMessage',
       Map()
         ..['content'] = content

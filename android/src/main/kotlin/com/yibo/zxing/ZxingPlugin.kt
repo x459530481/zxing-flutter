@@ -15,6 +15,9 @@ import io.reactivex.subjects.PublishSubject
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
+const val CHANNEL_ZXING = "zxing"
+const val CHANNEL_ZXING_STREAM = "zxing_stream"
+
 @Suppress("unused")
 class ZxingPlugin {
 
@@ -29,23 +32,16 @@ class ZxingPlugin {
             REGISTRAR = registrar
             EventBus.getDefault().register(this)
 
-            val channel = MethodChannel(registrar.messenger(), "zxing")
+            val channel = MethodChannel(registrar.messenger(), CHANNEL_ZXING)
             channel.setMethodCallHandler { call, result ->
                 when (call.method) {
                     "scan" -> handleScan(call, result)
-                    else -> result.notImplemented()
-                }
-            }
-
-            val showMessageChannel = MethodChannel(registrar.messenger(), "show_message")
-            showMessageChannel.setMethodCallHandler { call, result ->
-                when (call.method) {
                     "showMessage" -> handleShowMessage(call, result)
                     else -> result.notImplemented()
                 }
             }
 
-            val eventChannel = EventChannel(registrar.messenger(), "zxing_stream")
+            val eventChannel = EventChannel(registrar.messenger(), CHANNEL_ZXING_STREAM)
             eventChannel.setStreamHandler(object : EventChannel.StreamHandler {
                 override fun onListen(args: Any?, events: EventChannel.EventSink?) {
                     subject.subscribe(

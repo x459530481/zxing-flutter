@@ -1,13 +1,27 @@
 PODS:
   - Flutter (1.0.0)
-  - swiftScan (1.1.2)
+  - RxCocoa (4.0.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.0.0)
+  - Toast-Swift (3.0.1)
+  - Toaster (2.1.1)
   - zxing (0.0.1):
     - Flutter
-    - swiftScan (= 1.1.2)
+    - RxCocoa
+    - RxSwift
+    - Toast-Swift
+    - Toaster
 
 DEPENDENCIES:
   - Flutter (from `Pods/.symlinks/flutter/ios`)
   - zxing (from `Pods/.symlinks/plugins/zxing/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - RxCocoa
+    - RxSwift
+    - Toast-Swift
+    - Toaster
 
 EXTERNAL SOURCES:
   Flutter:
@@ -16,10 +30,13 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/plugins/zxing/ios
 
 SPEC CHECKSUMS:
-  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
-  swiftScan: 5bb808704805fc734fc63058143d8468dd11452e
-  zxing: c2dfa926d9ce1b216d32d1ba5cd70fc8fad25b62
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
+  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
+  Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
+  Toaster: a6c9532de1ded8105e77376f7dffeb2e12b46dbb
+  zxing: 93d99b2b5391629c109170f632830262a7b7474e
 
-PODFILE CHECKSUM: 92fc5d28bdb90e10758292a9685e148d8ba3ea81
+PODFILE CHECKSUM: 43d6ebab141c6a41e2cad9c357dff3309f96f130
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.5.3

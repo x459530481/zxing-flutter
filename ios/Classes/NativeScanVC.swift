@@ -9,7 +9,7 @@ import AVFoundation
 import UIKit
 
 public protocol NativeScanVCDelegate {
-    func scanned(scanResult: [String])
+    func scanned(scanResult: String)
 }
 
 class NativeScanVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
@@ -96,14 +96,14 @@ class NativeScanVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                         return
                     }
                     _resultList.append(singleResult)
-                    print("host single result:" + singleResult)
+                    
+                    scanDelegate?.scanned(scanResult: singleResult)
                 }
                 
                 if !isContinuous {
                     // stop scanning
                     _session.stopRunning()
                     
-                    scanDelegate?.scanned(scanResult: _resultList)
                     dismiss(animated: true, completion: nil)
                 }
             }
@@ -111,7 +111,6 @@ class NativeScanVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     @objc func done() {
-        scanDelegate?.scanned(scanResult: _resultList)
         dismiss(animated: true, completion: nil)
     }
 }

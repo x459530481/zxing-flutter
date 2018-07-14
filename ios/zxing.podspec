@@ -15,7 +15,10 @@ A new flutter plugin project.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'swiftScan', '1.1.2'
+  s.dependency 'RxSwift'
+  s.dependency 'RxCocoa'
+  s.dependency 'Toaster'
+  s.dependency 'Toast-Swift'
   
   s.ios.deployment_target = '8.0'
 end
