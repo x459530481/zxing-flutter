@@ -19,6 +19,7 @@ class Zxing {
 
     return _eventChannel
         .receiveBroadcastStream()
+        .distinct()
         .map<String>((data) => data as String);
   }
 
