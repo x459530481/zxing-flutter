@@ -36,7 +36,6 @@ class PortraitCaptureActivity : Activity() {
             scannerDbv.decodeContinuous(object : BarcodeCallback {
                 override fun barcodeResult(result: BarcodeResult?) {
                     if (result?.text!! != mLastBarcode) {
-                        Toast.makeText(this@PortraitCaptureActivity, result.text, Toast.LENGTH_LONG).show()
                         mLastBarcode = result.text
 
                         if (intent.getBooleanExtra(Intents.Scan.BEEP_ENABLED, true)) {
@@ -55,7 +54,6 @@ class PortraitCaptureActivity : Activity() {
             scannerDbv.decodeSingle(object : BarcodeCallback {
                 override fun barcodeResult(result: BarcodeResult?) {
                     if (result?.text!! != mLastBarcode) {
-                        Toast.makeText(this@PortraitCaptureActivity, result.text, Toast.LENGTH_LONG).show()
                         mLastBarcode = result.text
 
                         if (intent.getBooleanExtra(Intents.Scan.BEEP_ENABLED, true)) {

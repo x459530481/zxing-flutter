@@ -103,8 +103,6 @@ class NativeScanVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 //                        Sound.play(file: "zxing_beep.ogg")
                     }
                     
-                    ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-                    view.makeToast(singleResult)
                     scanDelegate?.scanned(scanResult: singleResult)
                 }
                 
