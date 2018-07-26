@@ -32,6 +32,11 @@ class ZxingPlugin {
             REGISTRAR = registrar
             EventBus.getDefault().register(this)
 
+            registrar.addViewDestroyListener {
+                EventBus.getDefault().unregister(this)
+                true
+            }
+
             val channel = MethodChannel(registrar.messenger(), CHANNEL_ZXING)
             channel.setMethodCallHandler { call, result ->
                 when (call.method) {
