@@ -1,7 +1,11 @@
 package com.yibo.zxing
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -11,6 +15,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import io.flutter.plugin.platform.PlatformView
+import io.flutter.plugin.platform.PlatformViewFactory
 import io.reactivex.subjects.PublishSubject
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -30,6 +36,8 @@ class ZxingPlugin {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             REGISTRAR = registrar
+
+            registrar.platformViewRegistry().registerViewFactory("TextView", TextViewFactory())
             EventBus.getDefault().register(this)
 
             registrar.addViewDestroyListener {
@@ -115,4 +123,19 @@ class ZxingPlugin {
             result.success(null)
         }
     }
+}
+
+class TextViewFactory : PlatformViewFactory {
+    override fun create(context: Context?, p1: Int): PlatformView {
+        return PlatformTextView(context)
+    }
+}
+
+class PlatformTextView(context: Context?) : View(context), PlatformView {
+    @SuppressLint("SetTextI18n")
+    override fun getView(): View {
+        return TextView(context).apply { text = "from platform" }
+    }
+
+    override fun dispose() {}
 }
