@@ -64,6 +64,8 @@ public class SwiftZxingPlugin: NSObject {
         
         if isError {
             ToastManager.shared.style.backgroundColor = .red
+        } else {
+            ToastManager.shared.style.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         }
         _navigationVC.view.makeToast(content)
     }
