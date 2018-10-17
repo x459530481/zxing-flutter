@@ -1,9 +1,10 @@
 package com.yibo.zxing
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import com.google.zxing.integration.android.IntentIntegrator
 import com.tbruyelle.rxpermissions2.RxPermissions
 import es.dmoral.toasty.Toasty
 import io.flutter.plugin.common.EventChannel
@@ -18,6 +19,7 @@ import org.greenrobot.eventbus.Subscribe
 const val CHANNEL_ZXING = "zxing"
 const val CHANNEL_ZXING_STREAM = "zxing_stream"
 
+@SuppressLint("CheckResult")
 @Suppress("unused")
 class ZxingPlugin {
 
@@ -89,12 +91,14 @@ class ZxingPlugin {
                                 return@addViewDestroyListener true
                             }
 
-                            IntentIntegrator(REGISTRAR?.activity())
-                                    .setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES)
-                                    .setCaptureActivity(PortraitCaptureActivity::class.java)
-                                    .setBeepEnabled(isBeep)
-                                    .addExtra("isContinuous", isContinuous)
-                                    .initiateScan()
+
+                            REGISTRAR?.activity()?.startActivity(Intent(REGISTRAR?.activity(), ScanActivity::class.java))
+//                            IntentIntegrator(REGISTRAR?.activity())
+//                                    .setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES)
+//                                    .setCaptureActivity(PortraitCaptureActivity::class.java)
+//                                    .setBeepEnabled(isBeep)
+//                                    .addExtra("isContinuous", isContinuous)
+//                                    .initiateScan()
 
                             result.success("启动成功")
                         } else {

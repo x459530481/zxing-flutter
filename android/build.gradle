@@ -2,7 +2,7 @@ group 'com.yibo.zxing'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.30'
     repositories {
         google()
         jcenter()
@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -44,7 +44,8 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     // zxing
-    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+//    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+    implementation 'cn.bingoogolapple:bga-qrcode-zbar:1.2.9'
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.blankj:utilcode:1.9.11'
     // rxPermission
