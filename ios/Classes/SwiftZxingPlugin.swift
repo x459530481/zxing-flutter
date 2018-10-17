@@ -53,7 +53,12 @@ public class SwiftZxingPlugin: NSObject {
         
         _navigationVC = UINavigationController.init(rootViewController: nativeVC)
         _navigationVC.navigationBar.barStyle = .blackTranslucent
-        _hostVC.present(_navigationVC, animated: true, completion: nil)
+        if _hostVC.navigationController != nil {
+            _hostVC.navigationController?.pushViewController(_navigationVC, animated: true)
+        } else {
+            // 通过present方法展示的VC在返回后, flutter会触发route的build方法, 会丢失上一个页面的状态, 暂时不知道怎么解决
+            _hostVC.present(_navigationVC, animated: true, completion: nil)
+        }
     }
     
     // 处理显示信息事件
