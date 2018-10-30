@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Vibrator
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-
+import android.widget.ToggleButton
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import cn.bingoogolapple.qrcode.zbar.ZBarView
 import org.greenrobot.eventbus.EventBus
@@ -13,21 +13,29 @@ import org.greenrobot.eventbus.EventBus
 class ScanActivity : AppCompatActivity(), QRCodeView.Delegate {
 
     private lateinit var mZBarView: ZBarView
+    private lateinit var mToggleFlashBtn: ToggleButton
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_scan)
 
         mZBarView = findViewById(R.id.zbarview)
+        mToggleFlashBtn = findViewById(R.id.toggleFlashBtn)
+        mToggleFlashBtn.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                mZBarView.openFlashlight() // 打开闪光灯
+            } else {
+                mZBarView.closeFlashlight() // 关闭闪光灯
+            }
+        }
+
         mZBarView.setDelegate(this)
     }
 
     override fun onStart() {
         super.onStart()
         mZBarView.startCamera() // 打开后置摄像头开始预览，但是并未开始识别
-
         mZBarView.startSpotAndShowRect() // 显示扫描框，并且延迟0.1秒后开始识别
-        mZBarView.openFlashlight() // 打开闪光灯
     }
 
     override fun onStop() {

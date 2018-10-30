@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="open_flash_light">打开闪光灯</string>
+    <string name="close_flash_light">关闭闪光灯</string>
+</resources>
